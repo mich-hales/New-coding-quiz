@@ -106,6 +106,9 @@ function showQuestion() {
     answer4.textContent = currentQuestion.answer4;
 }
 
+let inputInitialsScore = document.querySelector('.scores');
+let yourScore = document.querySelector('.your-score');
+
 // for loop for the answers
 for (i = 0; i < answerOptions.length; i++) {
     answerOptions[i].addEventListener('click', function(event) {
@@ -126,6 +129,14 @@ for (i = 0; i < answerOptions.length; i++) {
 
         if (questionIndex < 5) {
             showQuestion();
+        } 
+        
+        if (questionIndex === 5) {
+            questionContainer.classList.add('hide');
+            inputInitialsScore.classList.remove('hide');
+            answerStatus.classList.add('hide');
+            timer.classList.add('hide');
+            yourScore.textContent = 'Your Score: ' + score;
         }
     })
 }
@@ -174,6 +185,10 @@ function highToLowScores(list, key) {
         return -1;
     })
 }
+
+clearHighScores.addEventListener('click', function() {
+    localStorage.removeItem('highscores');
+})
 
 
 // save scores and rank them with their initials

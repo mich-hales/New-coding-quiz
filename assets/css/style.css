@@ -189,3 +189,25 @@ h1 {
     color: black;
     font-size: 30px;
 }
+
+.submit-scores {
+    text-decoration: none;
+    padding: 3px;
+    background-color: var(--yellow);
+    color: var(--purple);
+    height: 40px;
+    width: 130px;
+    border-radius: 5px;
+    font-size: 18px;
+    box-shadow: 0 0 5px 1px black;
+    font-weight: bold;
+}
+
+.initials-input {
+    height: 40px;
+    width: 190px;
+}
+
+.your-score {
+    color: black;
+}
