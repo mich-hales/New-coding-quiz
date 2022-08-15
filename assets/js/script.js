@@ -131,12 +131,49 @@ for (i = 0; i < answerOptions.length; i++) {
 }
 
 
+
 // record scores
-var getHighScores = localStorage
+let getHighScores = JSON.parse(localStorage.getItem('highscores')) || [];
+let highScoresShow = document.querySelector('.highscores-card');
+let clearHighScores = document.querySelector('.clear-scores');
+let tryAgain = document.querySelector('.try-again');
+let submitBtn = document.querySelector('.submit-scores');
+let initialsInput = document.querySelector('.initials-input');
 
-localStorage.setItem('highscores', JSON.stringify(score));
-localStorage.getItem('highscores');
 
+submitBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+
+    let initials = initialsInput.value;
+    let userScore = {initials, score};
+});
+
+getHighScores.push(userScore);
+localStorage.setItem('highscores', JSON.stringify(getHighScores));
+
+
+function showHighScore() {
+    getHighScores = highToLowScores(getHighScores, 'player score');
+
+    for (i = 0; i < getHighScores.length; i++) {
+        let listItem = document.createElement('li');
+        let initials = document.createTextNode(getHighScores[i].initials + ': ' + getHighScores[i].score);
+        listItem.appendChild(initials);
+        highScoresShow.appendChild(listItem);
+    }
+
+
+}
+
+
+function highToLowScores(list, key) {
+    return list.sort(function(x,y) {
+        if (x.score < y.score) {
+            return 1;
+        }
+        return -1;
+    })
+}
 
 
 // save scores and rank them with their initials
