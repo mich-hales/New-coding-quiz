@@ -11,7 +11,7 @@ let flexBox = document.querySelector('.flex-container');
 function startQuiz() {
     questionContainer.classList.remove('hide');
     startBtn.classList.add('hide');
-    showQuestion(quizQuestions);
+    showQuestion(queIndex);
 }
 
 // seconds left
@@ -46,39 +46,39 @@ startButton.addEventListener('click', startQuiz);
 
 let quizQuestions = [{
     question: 'Inside which element do you put JavaScript?',
-    answers: ['<var>', 
-    '<script>', 
-    '<section>', 
-    '<code>'],
-    correctAnswer: 1
+    answer1: '<var>', 
+    answer2: '<script>', 
+    answer3: '<section>', 
+    answer4: '<code>', 
+    correctAnswer: '<script>'
     }, {
     question: 'Which of the following reverses the order of the elements of an array?',
-    answers: ['reverse()',
-    'push()',
-    'reduce()',
-    'reduceRight()'],
-    correctAnswer: 0
+    answer1: 'reverse()', 
+    answer2: 'push()', 
+    answer3: 'reduce()', 
+    answer4: 'reduceRight()', 
+    correctAnswer: 'reverse()'
     }, {
     question: 'How do you get the DOM element with id in JavaScript?',
-    answers: ['window.getElementById(...)',
-    'document.innerHTML.getElementById(...)',
-    'page.getElementById(...)',
-    'document.getElementById(...)'],
-    correctAnswer: 3
+    answer1: 'window.getElementById(...)', 
+    answer2:  'document.innerHTML.getElementById(...)', 
+    answer3: 'page.getElementById(...)', 
+    answer4: 'document.getElementById(...)', 
+    correctAnswer: 'document.getElementById(...)'
 }, {
     question: 'Which built-in method combines the text of two strings and returns a new string?',
-    answers: ['append()',
-    'concat()',
-    'attach()',
-    'None of the above'],
-    correctAnswer: 1
+    answer1: 'append()', 
+    answer2: 'concat()', 
+    answer3: 'attach()', 
+    answer4: 'attach()', 
+    correctAnswer: 'concat()'
 }, {
     question: 'Which of the following creates a new array with all of the elements of this array for which the provided filtering function returns true?',
-    answers: ['concat()',
-    'every()',
-    'filter()',
-    'some()'],
-    correctAnswer: 2
+    answer1: 'concat()', 
+    answer2: 'every()', 
+    answer3: 'filter()', 
+    answer4: 'some()', 
+    correctAnswer: 'filter()'
 }];
 
 
@@ -86,22 +86,82 @@ let quizQuestions = [{
 let questionTitle = document.querySelector('#quiz-question');
 let answerOptions = document.querySelectorAll('.answers');  
 
-function showQuestion(q) {
-    questionTitle.textContent = q.question;
 
-    answerOptions.forEach(function(element, index){
-        element.textContent = q.answers[index];
-          
-        element.addEventListener('click', function(){
+let score = 0;
+let questionIndex = 0;
 
-            if (q.correctAnswer == index) {
-                console.log('you are right!');
-            } else {
-                console.log('you are wrong!');
-            }
-        });
-    }); 
+
+
+// selecting buttons
+let answer1 = document.getElementById('btn-1');
+let answer2 = document.getElementById('btn-2');
+let answer3 = document.getElementById('btn-3');
+let answer4 = document.getElementById('btn-4');
+
+
+function showQuestion() {
+    let currentQuestion = quizQuestions[questionIndex];
+    questionTitle.textContent = currentQuestion.question;
+    answer1.textContent = currentQuestion.answer1;
+    answer2.textContent = currentQuestion.answer2;
+    answer3.textContent = currentQuestion.answer3;
+    answer4.textContent = currentQuestion.answer4;
 }
+
+for (i = 0; i < answerOptions.length; i++) {
+    answerOptions[i].addEventListener('click', function(event) {
+        event.stopPropagation();
+        if (event.currentTarget.innerText === quizQuestions[questionIndex].correct){
+            
+        }
+    })
+}
+
+
+
+// function showQuestion(queIndex) {
+    
+//     // changing the quiz question
+//     for (var i = 0; i < quizQuestions.length; i++) {
+//         let currentQuestion = quizQuestions[queIndex].question;
+//         // let currentOptions = quizQuestions[queIndex].answers;
+//         questionTitle.textContent = currentQuestion;
+//         // answerOptions.textContent = currentOptions;
+//     }
+//     // quiz answer options
+//     answerOptions.forEach(function(element, index){
+//         element.textContent = queIndex.answers[index];
+
+//         element.addEventListener('click', function() {
+//             if (queIndex.correctAnswer == index) {
+//                 console.log('you are correct');
+//             } else {
+//                 console.log('you are wrong');
+//             }
+//         });
+//     }); 
+// }
+
+
+
+
+
+// function showQuestion(q) {
+//     questionTitle.textContent = q.question;
+
+//     answerOptions.forEach(function(element, index){
+//         element.textContent = q.answers[index];
+          
+//         element.addEventListener('click', function(){
+
+//             if (q.correctAnswer == index) {
+//                 console.log('you are right!');
+//             } else {
+//                 console.log('you are wrong!');
+//             }
+//         });
+//     }); 
+// };
 
 
 
