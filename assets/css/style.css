@@ -171,3 +171,16 @@ h1 {
     font-size: 25px;
     font-weight: bold;
 }
+
+
+.highscores-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--pink);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px white;
+    font-size: 30px;
+}
