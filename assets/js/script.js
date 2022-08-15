@@ -11,7 +11,7 @@ let flexBox = document.querySelector('.flex-container');
 function startQuiz() {
     questionContainer.classList.remove('hide');
     startBtn.classList.add('hide');
-    showQuestion(queIndex);
+    showQuestion();
 }
 
 // seconds left
@@ -86,11 +86,8 @@ let quizQuestions = [{
 let questionTitle = document.querySelector('#quiz-question');
 let answerOptions = document.querySelectorAll('.answers');  
 
-
 let score = 0;
 let questionIndex = 0;
-
-
 
 // selecting buttons
 let answer1 = document.getElementById('btn-1');
@@ -98,7 +95,7 @@ let answer2 = document.getElementById('btn-2');
 let answer3 = document.getElementById('btn-3');
 let answer4 = document.getElementById('btn-4');
 
-
+// change text content to current question
 function showQuestion() {
     let currentQuestion = quizQuestions[questionIndex];
     questionTitle.textContent = currentQuestion.question;
@@ -108,71 +105,31 @@ function showQuestion() {
     answer4.textContent = currentQuestion.answer4;
 }
 
+// for loop for the answers
 for (i = 0; i < answerOptions.length; i++) {
     answerOptions[i].addEventListener('click', function(event) {
         event.stopPropagation();
-        if (event.currentTarget.innerText === quizQuestions[questionIndex].correct){
-            
+        if (event.currentTarget.innerText === quizQuestions[questionIndex].correctAnswer){
+            score++;
+            console.log('correct!');
+            console.log(score);
+        } else {
+            secondsLeft -= 5;
+            console.log('incorrect!');
+            console.log(score)
+        }
+        console.log(questionIndex);
+        questionIndex++;
+
+        if (questionIndex < 5) {
+            showQuestion();
         }
     })
 }
 
 
 
-// function showQuestion(queIndex) {
-    
-//     // changing the quiz question
-//     for (var i = 0; i < quizQuestions.length; i++) {
-//         let currentQuestion = quizQuestions[queIndex].question;
-//         // let currentOptions = quizQuestions[queIndex].answers;
-//         questionTitle.textContent = currentQuestion;
-//         // answerOptions.textContent = currentOptions;
-//     }
-//     // quiz answer options
-//     answerOptions.forEach(function(element, index){
-//         element.textContent = queIndex.answers[index];
-
-//         element.addEventListener('click', function() {
-//             if (queIndex.correctAnswer == index) {
-//                 console.log('you are correct');
-//             } else {
-//                 console.log('you are wrong');
-//             }
-//         });
-//     }); 
-// }
-
-
-
-
-
-// function showQuestion(q) {
-//     questionTitle.textContent = q.question;
-
-//     answerOptions.forEach(function(element, index){
-//         element.textContent = q.answers[index];
-          
-//         element.addEventListener('click', function(){
-
-//             if (q.correctAnswer == index) {
-//                 console.log('you are right!');
-//             } else {
-//                 console.log('you are wrong!');
-//             }
-//         });
-//     }); 
-// };
-
-
-
-
-
-
-// function to get questions to cycle through
-
 // record scores
-
-// subtract time if answer is wrong
 
 // save scores and rank them with their initials
 
