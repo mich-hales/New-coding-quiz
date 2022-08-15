@@ -184,3 +184,8 @@ h1 {
     box-shadow: 0 0 10px 2px white;
     font-size: 30px;
 }
+
+.answer-status {
+    color: black;
+    font-size: 30px;
+}

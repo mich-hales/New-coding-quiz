@@ -85,6 +85,7 @@ let quizQuestions = [{
 // selecting dom elements
 let questionTitle = document.querySelector('#quiz-question');
 let answerOptions = document.querySelectorAll('.answers');  
+let answerStatus = document.querySelector('.answer-status');
 
 let score = 0;
 let questionIndex = 0;
@@ -113,10 +114,12 @@ for (i = 0; i < answerOptions.length; i++) {
             score++;
             console.log('correct!');
             console.log(score);
+            answerStatus.textContent = 'Correct!';
         } else {
             secondsLeft -= 5;
             console.log('incorrect!');
             console.log(score)
+            answerStatus.textContent = 'Incorrect!';
         }
         console.log(questionIndex);
         questionIndex++;
@@ -128,8 +131,13 @@ for (i = 0; i < answerOptions.length; i++) {
 }
 
 
-
 // record scores
+var getHighScores = localStorage
+
+localStorage.setItem('highscores', JSON.stringify(score));
+localStorage.getItem('highscores');
+
+
 
 // save scores and rank them with their initials
 
