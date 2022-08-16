@@ -124,8 +124,8 @@ function startTimer() {
         // clear interval and display highscores section
         if (secondsLeft === 0 || questionIndex === 5 ) {
             clearInterval(myInterval);
-            console.log('time is up!');
-            sendMessage();
+            // console.log('time is up!');
+            // sendMessage();
             questionContainer.classList.add('hide');
             inputInitialsScore.classList.remove('hide');
             answerStatus.classList.add('hide');
@@ -138,12 +138,12 @@ function startTimer() {
 }
 
 // sends message that time is up
-function sendMessage() {
-    let timesUp = document.createElement('p');
-    timesUp.textContent = 'Time is up!';
-    timesUp.classList.add('timesUp');
-    flexBox.appendChild(timesUp);
-}
+// function sendMessage() {
+//     let timesUp = document.createElement('p');
+//     timesUp.textContent = 'Time is up!';
+//     timesUp.classList.add('timesUp');
+//     flexBox.appendChild(timesUp);
+// }
 
 
 let header = document.querySelector('.high-score-header');
@@ -183,7 +183,6 @@ submitBtn.addEventListener('click', function(e){
 
     highscores.push(userScore);
   
-
     // highscores = highToLowScores(highscores, 'score');
 
     for (let i = 0; i < highscores.length; i++) {
