@@ -129,7 +129,7 @@ function startTimer() {
             inputInitialsScore.classList.remove('hide');
             answerStatus.classList.add('hide');
             displayYourScore.classList.remove('hide');
-            yourScore.textContent = 'Your Score: ' + score;
+            yourScore.textContent = 'YOUR SCORE:  ' + score;
             highscoresHeader();
         }
     }, 1000)
@@ -160,10 +160,11 @@ let tryAgain = document.querySelector('.try-again');
 let submitBtn = document.querySelector('.submit-scores');
 let initialsInput = document.querySelector('.initials-input');
 
-localStorage.setItem('highscores', JSON.stringify(score));
 
-submitBtn.addEventListener('click', function(e){
-    e.stopPropagation();
+submitBtn.addEventListener('click', function(event){
+    event.stopPropagation();
+    // prevents user from inputing multiple scores
+    inputInitialsScore.classList.add('hide');
   
     let initials = initialsInput.value;
     let userScore = {initials, score};
@@ -171,7 +172,9 @@ submitBtn.addEventListener('click', function(e){
     highscores.push(userScore);
     localStorage.setItem('highscores', JSON.stringify(score));
   
-    // highscores = highToLowScores(highscores, 'score');
+
+    // here too ????
+    highscores = highToLowScores(highscores, 'score');
 
     for (let i = 0; i < highscores.length; i++) {
         let listItem = document.createElement('li');
@@ -181,22 +184,37 @@ submitBtn.addEventListener('click', function(e){
 });
 
 
-// function highToLowScores(array, key) {
-//     return array.sort(function(x,y) {
-//         if (x.score < y.score) {
-//             return 1;
-//         }
-//         return -1;
-//     })
-// }
-
-
-clearHighScores.addEventListener('click', function() {
-    localStorage.removeItem('highscores');
+// how to get document to start quiz over without it losing any of the local storage
+tryAgain.addEventListener('click', function(){
+    // document.location.reload();
+    // startQuiz();
 })
 
 
-// save scores and rank them with their initials
+// isn't clearing the high scores properly... 
+clearHighScores.addEventListener('click', function() {
+    localStorage.clear('highscores');
+    
+})
 
-// restart quiz
+
+// randomly says highscores.push is not a function 
+// script.js:93 Uncaught TypeError: Cannot read properties of undefined (reading 'correctAnswer')
+// at HTMLButtonElement.<anonymous> (script.js:93:76)
+// (anonymous) @ script.js:93
+
+
+// when view high scores is clicked it takes you to the highscores...
+
+// ?? how does this work....
+function highToLowScores(array, key) {
+    return array.sort(function(x,y) {
+        if (x.score < y.score) {
+            return 1;
+        }
+        return -1;
+    })
+}
+
+
 
