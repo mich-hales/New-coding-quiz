@@ -6,6 +6,7 @@ let countdownNumber = document.getElementById('countdown-number');
 let viewHighScores = document.getElementById('view-highscores');
 let timer = document.querySelector('.timer');
 let flexBox = document.querySelector('.flex-container');
+let highScoresSection = document.querySelector('.high-scores-section');
 
 // function to start quiz 
 function startQuiz() {
@@ -14,30 +15,6 @@ function startQuiz() {
     showQuestion();
 }
 
-// seconds left
-let secondsLeft = 60;
-// start timer
-function startTimer() {
-    
-    const myInterval = setInterval(function(){
-        secondsLeft--;
-        countdownNumber.textContent = secondsLeft;
-
-        if (secondsLeft === 0) {
-            clearInterval(myInterval);
-            console.log('time is up!');
-            sendMessage();
-        }
-    }, 1000)
-}
-
-// sends message that time is up
-function sendMessage() {
-    let timesUp = document.createElement('p');
-    timesUp.textContent = 'Time is up!';
-    timesUp.classList.add('timesUp');
-    flexBox.appendChild(timesUp);
-}
 
 
 startButton.addEventListener('click', startTimer);
@@ -108,6 +85,7 @@ function showQuestion() {
 
 let inputInitialsScore = document.querySelector('.scores');
 let yourScore = document.querySelector('.your-score');
+let displayYourScore = document.querySelector('.background-highscore');
 
 // for loop for the answers
 for (i = 0; i < answerOptions.length; i++) {
@@ -131,64 +109,102 @@ for (i = 0; i < answerOptions.length; i++) {
             showQuestion();
         } 
         
-        if (questionIndex === 5) {
-            questionContainer.classList.add('hide');
-            inputInitialsScore.classList.remove('hide');
-            answerStatus.classList.add('hide');
-            timer.classList.add('hide');
-            yourScore.textContent = 'Your Score: ' + score;
-        }
     })
 }
 
+// seconds left
+let secondsLeft = 60
+// start timer
+function startTimer() {
+    
+    const myInterval = setInterval(function(){
+        secondsLeft--;
+        countdownNumber.textContent = secondsLeft;
+
+        if (secondsLeft === 0 || questionIndex === 5 ) {
+            clearInterval(myInterval);
+            console.log('time is up!');
+            sendMessage();
+            questionContainer.classList.add('hide');
+            inputInitialsScore.classList.remove('hide');
+            answerStatus.classList.add('hide');
+            displayYourScore.classList.remove('hide');
+            highScoresSection.classList.remove('hide');
+            yourScore.textContent = 'Your Score: ' + score;
+            highscoresHeader();
+        }
+    }, 1000)
+}
+
+// sends message that time is up
+function sendMessage() {
+    let timesUp = document.createElement('p');
+    timesUp.textContent = 'Time is up!';
+    timesUp.classList.add('timesUp');
+    flexBox.appendChild(timesUp);
+}
+
+
+let header = document.querySelector('.high-score-header');
+
+// changes the header to highscores
+function highscoresHeader() {
+    header.textContent = 'High Scores';
+}
 
 
 // record scores
-let getHighScores = JSON.parse(localStorage.getItem('highscores')) || [];
-let highScoresShow = document.querySelector('.highscores-card');
+let highscores = JSON.parse(localStorage.getItem('highscores')) || [];
+let listHighscores = document.querySelector('.highscores-card');
 let clearHighScores = document.querySelector('.clear-scores');
 let tryAgain = document.querySelector('.try-again');
 let submitBtn = document.querySelector('.submit-scores');
 let initialsInput = document.querySelector('.initials-input');
 
 
+// function setLocalStorage (key, value) {
+//     localStorage.setItem('highscores', score);
+//     console.log(`LocalStorage: ${key} has been set to ${value}.`);
+// }
+
+// function getLocalStorage (key) {
+//     return localStorage.getItem('highscores');
+// }
+
 submitBtn.addEventListener('click', function(e){
     e.stopPropagation();
 
     let initials = initialsInput.value;
     let userScore = {initials, score};
+
+    highscores.push(userScore);
+    localStorage.setItem('highscores', JSON.stringify(highscores));
+
+    // highscores = highToLowScores(highscores, 'score');
+
+    for (let i = 0; i < highscores.length; i++) {
+        let listItem = document.createElement('li');
+        listItem.textContent = highscores[i].initials + ': ' + highscores[i].score;
+        listHighscores.append(listItem);
+    }
 });
 
-getHighScores.push(userScore);
-localStorage.setItem('highscores', JSON.stringify(getHighScores));
+
+// function highToLowScores(array, key) {
+//     return array.sort(function(x,y) {
+//         if (x.score < y.score) {
+//             return 1;
+//         }
+//         return -1;
+//     })
+// }
 
 
-function showHighScore() {
-    getHighScores = highToLowScores(getHighScores, 'player score');
-
-    for (i = 0; i < getHighScores.length; i++) {
-        let listItem = document.createElement('li');
-        let initials = document.createTextNode(getHighScores[i].initials + ': ' + getHighScores[i].score);
-        listItem.appendChild(initials);
-        highScoresShow.appendChild(listItem);
-    }
 
 
-}
-
-
-function highToLowScores(list, key) {
-    return list.sort(function(x,y) {
-        if (x.score < y.score) {
-            return 1;
-        }
-        return -1;
-    })
-}
-
-clearHighScores.addEventListener('click', function() {
-    localStorage.removeItem('highscores');
-})
+// clearHighScores.addEventListener('click', function() {
+//     localStorage.removeItem('highscores');
+// })
 
 
 // save scores and rank them with their initials
