@@ -121,6 +121,7 @@ function startTimer() {
         secondsLeft--;
         countdownNumber.textContent = secondsLeft;
 
+        // clear interval and display highscores section
         if (secondsLeft === 0 || questionIndex === 5 ) {
             clearInterval(myInterval);
             console.log('time is up!');
@@ -162,14 +163,17 @@ let submitBtn = document.querySelector('.submit-scores');
 let initialsInput = document.querySelector('.initials-input');
 
 
-// function setLocalStorage (key, value) {
-//     localStorage.setItem('highscores', score);
-//     console.log(`LocalStorage: ${key} has been set to ${value}.`);
-// }
+function setLocalStorage (key, value) {
+    localStorage.setItem('highscores', JSON.stringify(score));
+    console.log(`LocalStorage: ${key} has been set to ${value}.`);
+}
 
 // function getLocalStorage (key) {
 //     return localStorage.getItem('highscores');
 // }
+
+// localStorage.setItem('highscores', JSON.stringify(score));
+
 
 submitBtn.addEventListener('click', function(e){
     e.stopPropagation();
@@ -178,7 +182,7 @@ submitBtn.addEventListener('click', function(e){
     let userScore = {initials, score};
 
     highscores.push(userScore);
-    localStorage.setItem('highscores', JSON.stringify(highscores));
+  
 
     // highscores = highToLowScores(highscores, 'score');
 
@@ -200,11 +204,9 @@ submitBtn.addEventListener('click', function(e){
 // }
 
 
-
-
-// clearHighScores.addEventListener('click', function() {
-//     localStorage.removeItem('highscores');
-// })
+clearHighScores.addEventListener('click', function() {
+    localStorage.removeItem('highscores');
+})
 
 
 // save scores and rank them with their initials
