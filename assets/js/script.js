@@ -6,7 +6,6 @@ let countdownNumber = document.getElementById('countdown-number');
 let viewHighScores = document.getElementById('view-highscores');
 let timer = document.querySelector('.timer');
 let flexBox = document.querySelector('.flex-container');
-let highScoresSection = document.querySelector('.high-scores-section');
 
 // function to start quiz 
 function startQuiz() {
@@ -130,7 +129,6 @@ function startTimer() {
             inputInitialsScore.classList.remove('hide');
             answerStatus.classList.add('hide');
             displayYourScore.classList.remove('hide');
-            highScoresSection.classList.remove('hide');
             yourScore.textContent = 'Your Score: ' + score;
             highscoresHeader();
         }
@@ -162,32 +160,22 @@ let tryAgain = document.querySelector('.try-again');
 let submitBtn = document.querySelector('.submit-scores');
 let initialsInput = document.querySelector('.initials-input');
 
-
-function setLocalStorage (key, value) {
-    localStorage.setItem('highscores', JSON.stringify(score));
-    console.log(`LocalStorage: ${key} has been set to ${value}.`);
-}
-
-// function getLocalStorage (key) {
-//     return localStorage.getItem('highscores');
-// }
-
-// localStorage.setItem('highscores', JSON.stringify(score));
-
+localStorage.setItem('highscores', JSON.stringify(score));
 
 submitBtn.addEventListener('click', function(e){
     e.stopPropagation();
-
+  
     let initials = initialsInput.value;
     let userScore = {initials, score};
 
     highscores.push(userScore);
+    localStorage.setItem('highscores', JSON.stringify(score));
   
     // highscores = highToLowScores(highscores, 'score');
 
     for (let i = 0; i < highscores.length; i++) {
         let listItem = document.createElement('li');
-        listItem.textContent = highscores[i].initials + ': ' + highscores[i].score;
+        listItem.textContent = highscores[i].initials + ':  ' + highscores[i].score;
         listHighscores.append(listItem);
     }
 });

@@ -25,9 +25,20 @@
         </div>
     </section>
 
-    <div class="background-highscore hide">
-        <h3 class="your-score container"></h3>
-    </div>
+    <section class="background-highscore hide container">
+        <h3 class="your-score"></h3>
+        <div class="scores">
+            <input type="text" class="initials-input" placeholder="Enter your initials here">
+            <button class="submit-scores">Submit</button>
+            <p class="answer-status"></p>
+        </div>
+        <div class="high-scores-section">
+            <ol class="highscores-card">
+            </ol>
+            <button class="try-again submit-scores">Try Again</button>
+            <button class="clear-scores submit-scores">Clear Scores</button>
+        </div>
+    </section>
 
 
     <div class="start-button">
@@ -44,19 +55,10 @@
                 <button type="button" id="btn-4" class="answers">answer 4</button>
             </div>
         </div>
-        <div class="scores hide">
-            <input type="text" class="initials-input" placeholder="Enter your initials here">
-            <button class="submit-scores">Submit</button>
-            <p class="answer-status"></p>
-        </div>
+      
     </section>
 
-    <section class="high-scores-section hide">
-        <ol class="highscores-card">
-        </ol>
-        <button class="try-again submit-scores">Try Again</button>
-        <button class="clear-scores submit-scores">Clear Scores</button>
-    </section>
+  
 
    
     <script src="assets/js/script.js"></script>
