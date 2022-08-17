@@ -14,7 +14,6 @@ function startQuiz() {
 }
 
 
-
 startButton.addEventListener('click', startTimer);
 startButton.addEventListener('click', startQuiz);
 
@@ -122,8 +121,7 @@ function startTimer() {
         // clear interval and display highscores section
         if (secondsLeft === 0 || questionIndex === 5 ) {
             clearInterval(myInterval);
-            // console.log('time is up!');
-            // sendMessage();
+            console.log('time is up!');
             questionContainer.classList.add('hide');
             inputInitialsScore.classList.remove('hide');
             answerStatus.classList.add('hide');
@@ -134,15 +132,6 @@ function startTimer() {
     }, 1000)
 }
 
-// sends message that time is up
-// function sendMessage() {
-//     let timesUp = document.createElement('p');
-//     timesUp.textContent = 'Time is up!';
-//     timesUp.classList.add('timesUp');
-//     flexBox.appendChild(timesUp);
-// }
-
-
 let header = document.querySelector('.high-score-header');
 
 // changes the header to highscores
@@ -152,10 +141,8 @@ function highscoresHeader() {
 
 
 // record scores
-
 let listHighscores = document.querySelector('.highscores-card');
 let clearHighScores = document.querySelector('.clear-scores');
-// let tryAgain = document.querySelector('.try-again');
 let submitBtn = document.querySelector('.submit-scores');
 let initialsInput = document.querySelector('.initials-input');
 let viewHighScores = document.getElementById('view-highscores');
@@ -163,9 +150,8 @@ let viewHighScores = document.getElementById('view-highscores');
 
 submitBtn.addEventListener('click', function(){
     console.log('we are here');
-    // event.stopPropagation();
-    // prevents user from inputing multiple scores
-    // inputInitialsScore.classList.add('hide');
+
+    // local storage
     let highscores = JSON.parse(localStorage.getItem('highscores')) || [];
     let initials = initialsInput.value;
     let userScore = {initials, score};
@@ -174,9 +160,6 @@ submitBtn.addEventListener('click', function(){
     localStorage.setItem('highscores', JSON.stringify(highscores));
 
     window.location = './assets/highscores.html';
-  
-
-
 });
 
 
